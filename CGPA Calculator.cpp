@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<iomanip>
+#include<windows.h>
 #include<cctype>
 using namespace std;
 const int Max_sem=10;
@@ -47,6 +48,13 @@ Semester take_semester(int i) {
 again:
 	cout<<"Enter number of courses (max courses per semester "<<Max_courses<<" ) : ";
 	cin>>semest.t_course;
+	if(cin.fail()) {
+		cin.clear();
+		cin.ignore(1000,'\n');
+		cout<< "\nInvalid Input!\n";
+		Sleep(1500);
+		goto again;
+	}
 	if(semest.t_course > Max_courses || semest.t_course<=0) {
 		cout<<"Invalid ........\n";
 		goto again;
@@ -58,7 +66,8 @@ again:
 		getline(cin,semest.course[j].subject);
 		cout<<"Course Grade (A,A+,B,D,F.. ) : ";
 		getline(cin,semest.course[j].s_grade);
-	credit:	cout<<"Credit Hourse : ";
+credit:
+		cout<<"Credit Hourse : ";
 
 		if(	!(cin>>semest.course[j].c_credit_h)) {
 
@@ -67,8 +76,7 @@ again:
 			cin.ignore(1000, '\n');
 			goto credit;
 		}
-		if(semest.course[j].c_credit_h<0)
-		{
+		if(semest.course[j].c_credit_h<0) {
 			cout<<"Invalid.....\n";
 			goto credit;
 		}
@@ -122,6 +130,13 @@ int main() {
 again:
 	cout<<"Enter semester no.(max semester 1-"<<Max_sem<<" ) : ";
 	cin>>sem;
+	if(cin.fail()) {
+		cin.clear();
+		cin.ignore(1000,'\n');
+		cout<< "\nInvalid Input!\n";
+		Sleep(1500);
+		goto again;
+	}
 	if(sem>Max_sem|| sem<= 0) {
 		cout<<"Invalid Semester..! \n";
 		goto again;
